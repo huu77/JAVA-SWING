@@ -60,11 +60,11 @@ public class AES {
     return null;
   }
   //test code 
-//    public static void main(String[] args) {
-//        AES a=new AES();
-//       String x= a.encrypt("huucaca", "Aa@gmail.com");
-//        System.out.println("x : "+x);
-//        String y=a.decrypt(x, "Aa@gmail.com");
-//        System.out.println("y :" + y);
-//    }
+    public static void main(String[] args) {
+        AES a=new AES();
+       String x= a.encrypt("huucaca", "Aa@gmail.com");
+        System.out.println("x : "+x);
+        String y=a.decrypt(x, "Aa@gmail.com");
+        System.out.println("y :" + y);
+    }
 }

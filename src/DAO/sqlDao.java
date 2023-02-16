@@ -23,7 +23,7 @@ public class sqlDao {
         try {
             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
             conn = DriverManager.getConnection(DB_URL, USER_NAME, PASSWORD);
-            System.out.println("connect successfully!");
+           
         } catch (Exception ex) {
             System.out.println("connect failure!");
             ex.printStackTrace();
@@ -32,6 +32,6 @@ public class sqlDao {
     }
     
     public static void print1(){
-        System.out.println("cc");
+        System.out.println("huu");
     }
 }
