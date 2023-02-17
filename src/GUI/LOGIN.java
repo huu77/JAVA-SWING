@@ -24,7 +24,7 @@ public class LOGIN extends javax.swing.JFrame {
         setLocationRelativeTo(null);
 
         jlbERRMK.setVisible(false);
-        jlbCHECK.setVisible(false);
+        
     }
 
     /**
@@ -46,7 +46,6 @@ public class LOGIN extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         jlbERRMK = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
-        jlbCHECK = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -119,11 +118,6 @@ public class LOGIN extends javax.swing.JFrame {
             }
         });
 
-        jlbCHECK.setBackground(new java.awt.Color(255, 0, 0));
-        jlbCHECK.setForeground(new java.awt.Color(255, 0, 0));
-        jlbCHECK.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jlbCHECK.setText("* có lẽ bạn chưa nhập sai tên đăng nhập hoặc mật khẩu");
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -134,29 +128,27 @@ public class LOGIN extends javax.swing.JFrame {
                 .addGap(115, 115, 115))
             .addGroup(layout.createSequentialGroup()
                 .addGap(39, 39, 39)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jlbCHECK, javax.swing.GroupLayout.PREFERRED_SIZE, 349, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addGroup(layout.createSequentialGroup()
-                                    .addComponent(jbtLOGIN)
-                                    .addGap(29, 29, 29)
-                                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGap(44, 44, 44)
-                                    .addComponent(jButton2))
-                                .addGroup(layout.createSequentialGroup()
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(jLabel2)
-                                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGap(34, 34, 34)
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                        .addComponent(jtxtPass, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(jtxDN, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
-                        .addGroup(layout.createSequentialGroup()
-                            .addGap(3, 3, 3)
-                            .addComponent(jlbERRMK, javax.swing.GroupLayout.PREFERRED_SIZE, 349, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jbtLOGIN)
+                                .addGap(29, 29, 29)
+                                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(44, 44, 44)
+                                .addComponent(jButton2))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel2)
+                                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(34, 34, 34)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(jtxtPass, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jtxDN, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(3, 3, 3)
+                        .addComponent(jlbERRMK, javax.swing.GroupLayout.PREFERRED_SIZE, 349, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(42, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -181,9 +173,7 @@ public class LOGIN extends javax.swing.JFrame {
                     .addComponent(jButton1))
                 .addGap(18, 18, 18)
                 .addComponent(jlbERRMK)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jlbCHECK)
-                .addContainerGap(21, Short.MAX_VALUE))
+                .addContainerGap(43, Short.MAX_VALUE))
         );
 
         pack();
@@ -198,68 +188,34 @@ public class LOGIN extends javax.swing.JFrame {
         String pass = new String(jtxtPass.getPassword());
         String PassMH = aes.encrypt(pass, this.secret);
 
-        if (jtxDN.getText().equals("")  ) {
-            if(jtxtPass.getPassword().equals("")){
-                jlbERRMK.setVisible(true);
-            }
-            jlbERRMK.setVisible(true);
-            
+        if (jtxDN.getText().equalsIgnoreCase("") || jtxtPass.getPassword().equals("")) {
+           
+          JOptionPane.showMessageDialog(this, "đăng nhập thất bại! ");
+
         }
-        else if(jtxtPass.getPassword().equals("")){
-            if(jtxDN.getText().equals("")){
-                jlbERRMK.setVisible(true);
-            }
-             jlbERRMK.setVisible(true);
-        }
-        else if((jtxDN.getText().equals("")==false) || jtxtPass.getPassword().equals("")){
-            jlbERRMK.setVisible(true);
-        }
-        else if (  jtxDN.getText().equals("")==false ) {
-            if(jtxtPass.getPassword().equals("")){
-                   jlbERRMK.setVisible(false);
-                 JOptionPane.showMessageDialog(this, "đăng nhập that bai! ");
-            }else{
-                JOptionPane.showMessageDialog(this, "đăng nhập thành công! ");
-            }
+      
+        else {
+
             for (int i = 0; i <= lgDTO.getLoginUp(user, PassMH).size(); i++) {
                 LOGIN_MODEL lgM = lgDTO.getLoginUp(user, PassMH).get(i);
-//                if(lgM.getTenDangNhap().equalsIgnoreCase(user)==false || lgM.getMatKhau().equalsIgnoreCase(PassMH)==false){
-//                    jlbCHECK.setVisible(true);
-//                       JOptionPane.showMessageDialog(this, "đăng nhập thất bại! ");
-//                }
-//                else if(lgM.getTenDangNhap().equalsIgnoreCase(user)==false || lgM.getMatKhau().equalsIgnoreCase(PassMH) ){
-//                    jlbCHECK.setVisible(true);
-//                       JOptionPane.showMessageDialog(this, "đăng nhập thất bại! ");
-//                }
-//                else if(lgM.getTenDangNhap().equalsIgnoreCase(user)  || lgM.getMatKhau().equalsIgnoreCase(PassMH)==false){
-//                    jlbCHECK.setVisible(true);
-//                       JOptionPane.showMessageDialog(this, "đăng nhập thất bại! ");
-//                }
-//                else{
-//                       JOptionPane.showMessageDialog(this, "đăng nhập thành công! ");
-//                       viewMain m = new viewMain();
-//            this.setVisible(false);
-//            m.setVisible(true);
-//                }
 
-//                if (!lgM.getTenDangNhap().equalsIgnoreCase(user) || !lgM.getMatKhau().equalsIgnoreCase(PassMH)) {
-//                    jlbCHECK.setVisible(true);
-//                    JOptionPane.showMessageDialog(this, "đăng nhập thất bại! ");
-//                } else {
-//                    JOptionPane.showMessageDialog(this, "đăng nhập thành công! ");
-//                    viewMain m = new viewMain();
-//                    this.setVisible(false);
-//                    m.setVisible(true);
-//                }
+                if (!lgM.getTenDangNhap().equalsIgnoreCase(user) && !lgM.getMatKhau().equalsIgnoreCase(PassMH)) {
+                    
+                    JOptionPane.showMessageDialog(this, "đăng nhập thất bại! ");
+                }
+                 
+               if(lgM.getTenDangNhap().equalsIgnoreCase(user) && lgM.getMatKhau().equalsIgnoreCase(PassMH)) {
+                    JOptionPane.showMessageDialog(this, "đăng nhập thành công! ");
+                    viewMain m = new viewMain();
+                    this.setVisible(false);
+                    m.setVisible(true);
+
+                }
+
             }
 
         }
-//
-//        if (user.equals("abcc") && pass.equals("1234")) {
-//            viewMain m = new viewMain();
-//            this.setVisible(false);
-//            m.setVisible(true);
-//        }
+
 
     }//GEN-LAST:event_jbtLOGINActionPerformed
 
@@ -331,7 +287,6 @@ public class LOGIN extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JButton jbtLOGIN;
-    private javax.swing.JLabel jlbCHECK;
     private javax.swing.JLabel jlbERRMK;
     private javax.swing.JTextField jtxDN;
     private javax.swing.JPasswordField jtxtPass;

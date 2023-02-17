@@ -36,8 +36,8 @@ public class LOGIN_DTO {
             ResultSet rs = stm.executeQuery(query);
             while (rs.next()) {
                 LOGIN_MODEL lg=new LOGIN_MODEL(rs.getString(1), rs.getString(2));
-                System.out.println(rs.getString(1)+"vaf "+ rs.getString(2));
-                listTK.add(lg);
+             
+                listTK.add(lg); 
                  
             }
       } catch (Exception e) {
