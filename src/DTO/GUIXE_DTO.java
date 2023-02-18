@@ -82,6 +82,27 @@ public class GUIXE_DTO {
         return listHTG;
 
     }
+    //get tinh trang 
+     public static List<String> getTinhTrang() {
+        List<String> listTT = new ArrayList<>();
+        try {
+            String query = "SELECT TENTINHTRANG FROM TINHTRANG_HINHTHUCGUI";
+            Connection con = sqlDao.getConnection();
+            Statement stm = con.createStatement();
+            ResultSet rs = stm.executeQuery(query);
+
+            while (rs.next()) {
+
+                String l = rs.getString(1);
+                listTT.add(l);
+
+            }
+
+        } catch (SQLException e) {
+        }
+        return listTT;
+
+    }
 
     //GET ID THE RIENG CHO COMBOBOX
     public static List<String> getMaThe() {
@@ -122,6 +143,8 @@ public class GUIXE_DTO {
         }
         return list;
     }
+ 
+  
 
     public static void main(String[] args)   {
 

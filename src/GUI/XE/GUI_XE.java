@@ -24,7 +24,7 @@ public class GUI_XE extends javax.swing.JPanel {
         showDSXe();
         showLoaiXeCBB();
         showHTGCBB();
-       
+        jlbERR1.setVisible(false);
     }
 
     @SuppressWarnings("unchecked")
@@ -111,6 +111,11 @@ public class GUI_XE extends javax.swing.JPanel {
 
         jButton1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jButton1.setText("ĐẶT LẠI");
+        jButton1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton1MouseClicked(evt);
+            }
+        });
 
         jtxtMATHE.setText(" ");
 
@@ -190,6 +195,11 @@ public class GUI_XE extends javax.swing.JPanel {
         jLabel9.setText("CHỨC NĂNG");
 
         jButton2.setText("ĐĂNG KÍ ");
+        jButton2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton2MouseClicked(evt);
+            }
+        });
 
         jButton3.setText("CẬP NHẬT");
 
@@ -305,26 +315,40 @@ public class GUI_XE extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 // table click lấy item 
     private void jtbXEMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtbXEMouseClicked
-       int vitri=jtbXE.getSelectedRow();
+        int vitri = jtbXE.getSelectedRow();
         hideVitri(vitri);
     }//GEN-LAST:event_jtbXEMouseClicked
-private void hideVitri(int i){
 
-    List<DANG_KI_HINH_THUC_XE> list1=GUIXE_DTO.getDKXE();
+    private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
+        jtxtBSX.setText("");
+        jtxtTENXE.setText("");
+        jtxtMAUXE.setText("");
+        jCBBLOAIXE.setSelectedIndex(0);
+        jCBBHTG.setSelectedIndex(0);
+    }//GEN-LAST:event_jButton1MouseClicked
 
-List<XE_MODEL> list =GUIXE_DTO.getALLXE();
-XE_MODEL xe=list.get(i);
-jtxtBSX.setText(xe.getBienSoXe());
-jtxtTENXE.setText(xe.getTenXe());
-jtxtMAUXE.setText(xe.getMauXe());
- jCBBLOAIXE.setSelectedItem(xe.getLoaiXe());
- for(DANG_KI_HINH_THUC_XE x:list1){
-     if(xe.getBienSoXe().equals(x.getBienSoXe())){
-         jCBBHTG.setSelectedItem(x.getTenHinhThucGui());
-         jtxtMATHE.setText(x.getIdthe());
-     }
- }
-}
+    private void jButton2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton2MouseClicked
+          DANGKIXE dkx=new DANGKIXE();
+          dkx.setVisible(true);
+    }//GEN-LAST:event_jButton2MouseClicked
+    private void hideVitri(int i) {
+
+        List<DANG_KI_HINH_THUC_XE> list1 = GUIXE_DTO.getDKXE();
+
+        List<XE_MODEL> list = GUIXE_DTO.getALLXE();
+        XE_MODEL xe = list.get(i);
+        jtxtBSX.setText(xe.getBienSoXe());
+        jtxtTENXE.setText(xe.getTenXe());
+        jtxtMAUXE.setText(xe.getMauXe());
+        jCBBLOAIXE.setSelectedItem(xe.getLoaiXe());
+        for (DANG_KI_HINH_THUC_XE x : list1) {
+            if (xe.getBienSoXe().equals(x.getBienSoXe())) {
+                jCBBHTG.setSelectedItem(x.getTenHinhThucGui());
+                jtxtMATHE.setText(x.getIdthe());
+            }
+        }
+    }
+
     //show ds xe
     public void showDSXe() {
         DefaultTableModel model = new DefaultTableModel();
@@ -353,25 +377,24 @@ jtxtMAUXE.setText(xe.getMauXe());
         }
         jtbXE.setModel(model);
     }
-    
+
     //
-     public void  showLoaiXeCBB(){
-          List<String> list = gx.getLoaiXeCBB();
+    public void showLoaiXeCBB() {
+        List<String> list = gx.getLoaiXeCBB();
         for (String d : list) {
             jCBBLOAIXE.addItem(d);
         }
-     }
+    }
+
     //
-     public void  showHTGCBB(){
-          List<String> list = gx.getHinhThucGUiCBB();
+    public void showHTGCBB() {
+        List<String> list = gx.getHinhThucGUiCBB();
         for (String d : list) {
             jCBBHTG.addItem(d);
         }
-     }
- 
-    
-    
-    
+    }
+
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
