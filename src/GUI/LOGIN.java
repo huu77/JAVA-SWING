@@ -6,7 +6,9 @@ package GUI;
 
 import AES.AES;
 import DTO.LOGIN_DTO;
-import MODEL.LOGIN_MODEL;
+ 
+import MODEL.NHANVIEN;
+import java.util.List;
 import javax.swing.JOptionPane;
 
 /**
@@ -18,13 +20,19 @@ public class LOGIN extends javax.swing.JFrame {
     protected final String secret = "Thanhuu204768@gmail.com";
     AES aes = new AES();
     LOGIN_DTO lgDTO = new LOGIN_DTO();
+   public static String user=null;
+    private String pass=null;
+     public static String PassMH =null;
 
+     
+
+    //
     public LOGIN() {
         initComponents();
         setLocationRelativeTo(null);
 
         jlbERRMK.setVisible(false);
-        
+
     }
 
     /**
@@ -184,38 +192,23 @@ public class LOGIN extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jbtLOGINActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtLOGINActionPerformed
-        String user = jtxDN.getText();
-        String pass = new String(jtxtPass.getPassword());
-        String PassMH = aes.encrypt(pass, this.secret);
-
-        if (jtxDN.getText().equalsIgnoreCase("") || jtxtPass.getPassword().equals("")) {
-           
-          JOptionPane.showMessageDialog(this, "đăng nhập thất bại! ");
-
+          user = jtxDN.getText();
+         pass = new String(jtxtPass.getPassword());
+         PassMH = aes.encrypt(pass, this.secret);
+ 
+        if (LOGIN_DTO.getLoginUp(user, PassMH).size() == 1) {
+            
+                JOptionPane.showMessageDialog(this, "đăng nhập thành công! ");
+                new viewMain().setVisible(true);
+                this.setVisible(false);
+               
+            }else{
+         JOptionPane.showMessageDialog(this, "đăng nhập thất bại! ");
+          jlbERRMK.setVisible(false);
+        jtxDN.setText("");
+        jtxDN.requestFocus();
+        jtxtPass.setText("");
         }
-      
-        else {
-
-            for (int i = 0; i <= lgDTO.getLoginUp(user, PassMH).size(); i++) {
-                LOGIN_MODEL lgM = lgDTO.getLoginUp(user, PassMH).get(i);
-
-                if (!lgM.getTenDangNhap().equalsIgnoreCase(user) && !lgM.getMatKhau().equalsIgnoreCase(PassMH)) {
-                    
-                    JOptionPane.showMessageDialog(this, "đăng nhập thất bại! ");
-                }
-                 
-               if(lgM.getTenDangNhap().equalsIgnoreCase(user) && lgM.getMatKhau().equalsIgnoreCase(PassMH)) {
-                    JOptionPane.showMessageDialog(this, "đăng nhập thành công! ");
-                    viewMain m = new viewMain();
-                    this.setVisible(false);
-                    m.setVisible(true);
-
-                }
-
-            }
-
-        }
-
 
     }//GEN-LAST:event_jbtLOGINActionPerformed
 

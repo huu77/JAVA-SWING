@@ -11,7 +11,8 @@ package DTO;
  */
 import AES.AES;
 import DAO.sqlDao;
-import MODEL.LOGIN_MODEL;
+ 
+import MODEL.NHANVIEN;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
@@ -26,16 +27,16 @@ public class LOGIN_DTO {
      * @param password
      * @return
      */
-    public static List<LOGIN_MODEL> getLoginUp(String username, String password){
-       List<LOGIN_MODEL> listTK = new ArrayList<>();
+    public static List<NHANVIEN> getLoginUp(String text1, String text2){
+       List<NHANVIEN> listTK = new ArrayList<>();
        AES aes=new AES();
       try {
-            String query = "select * from TAIKHOAN where TENDANGNHAP='"+username+"' and MATKHAU='"+password+"';";
+            String query = "select TENDANGNHAP , MATKHAU ,HOTEN, IDVAITRO  from TAIKHOAN , NHANVIEN where TAIKHOAN.MANV=NHANVIEN.MANV and TENDANGNHAP='"+text1+"' and MATKHAU= '"+text2+"'";
             Connection con = sqlDao.getConnection();
             Statement stm = con.createStatement();
             ResultSet rs = stm.executeQuery(query);
             while (rs.next()) {
-                LOGIN_MODEL lg=new LOGIN_MODEL(rs.getString(1), rs.getString(2));
+              NHANVIEN lg=new NHANVIEN(rs.getString(1), rs.getString(2),rs.getString(3),rs.getString(4));
              
                 listTK.add(lg); 
                  
@@ -55,7 +56,7 @@ public class LOGIN_DTO {
 //cac tai khoan test abcc:huucaca2002 va admin:huu123
 //em test bao mat cua thuat toan AES chuyen mk tu sql len va ma hoa no thu
 //AES a=new AES();
-//       String x= a.encrypt("huu123",lgDTO.secret);
+//       String x= a.encrypt("huucaca2002",lgDTO.secret);
 //       String y=a.decrypt(x, lgDTO.secret);
 //        System.out.println(x+" va "+y);
 

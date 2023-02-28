@@ -4,6 +4,12 @@
  */
 package GUI.XE;
 
+import DTO.GUIXE_DTO;
+import MODEL.DANG_KI_HINH_THUC_XE;
+import java.util.List;
+import java.util.Vector;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author HUU77
@@ -15,6 +21,7 @@ public class DS_HINH_THUC_GUI_XE extends javax.swing.JPanel {
      */
     public DS_HINH_THUC_GUI_XE() {
         initComponents();
+        showDS();
     }
 
     /**
@@ -26,46 +33,26 @@ public class DS_HINH_THUC_GUI_XE extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel1 = new javax.swing.JPanel();
-        jLabel3 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<>();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
-        jLabel4 = new javax.swing.JLabel();
+        jPanel2 = new javax.swing.JPanel();
         jButton1 = new javax.swing.JButton();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jtbDS = new javax.swing.JTable();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jButton2 = new javax.swing.JButton();
+        jtxtSearch = new javax.swing.JTextField();
 
         setPreferredSize(new java.awt.Dimension(1279, 559));
 
-        jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel3.setText("TÌM KIẾM");
+        jButton1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jButton1.setText("ĐẶT LẠI");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(112, 112, 112)
-                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 252, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(705, Short.MAX_VALUE))
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jComboBox1)
-                        .addGap(1, 1, 1))
-                    .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.LEADING))
-                .addGap(97, 97, 97))
-        );
-
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        jtbDS.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -76,14 +63,56 @@ public class DS_HINH_THUC_GUI_XE extends javax.swing.JPanel {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane2.setViewportView(jtbDS);
 
-        jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel4.setText("DANH SÁCH");
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabel1.setText("TÌM KIẾM");
 
-        jButton1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jButton1.setText("ĐẶT LẠI");
+        jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabel2.setText("DANH SÁCH");
+
+        jButton2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jButton2.setText("Search");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 1267, Short.MAX_VALUE)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(27, 27, 27)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel2)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addGap(254, 254, 254)
+                        .addComponent(jtxtSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 297, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButton2)
+                        .addGap(104, 104, 104)
+                        .addComponent(jButton1)))
+                .addContainerGap(334, Short.MAX_VALUE))
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addGap(10, 10, 10)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel1)
+                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jButton2)
+                        .addComponent(jtxtSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jButton1)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 125, Short.MAX_VALUE)
+                .addComponent(jLabel2)
+                .addGap(30, 30, 30)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 333, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -91,38 +120,114 @@ public class DS_HINH_THUC_GUI_XE extends javax.swing.JPanel {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(81, 81, 81))
-            .addComponent(jScrollPane1)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton1)
-                .addGap(32, 32, 32))
+                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jLabel4)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 16, Short.MAX_VALUE)
-                .addComponent(jButton1)
-                .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 331, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap()
+                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+
+        String textSearch = jtxtSearch.getText();
+        
+        showDATA(textSearch);
+
+
+    }//GEN-LAST:event_jButton2ActionPerformed
+ 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        jtxtSearch.setText("");
+        showDS();
+    }//GEN-LAST:event_jButton1ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
-    private javax.swing.JComboBox<String> jComboBox1;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JTable jtbDS;
+    private javax.swing.JTextField jtxtSearch;
     // End of variables declaration//GEN-END:variables
+public void showDS() {
+        DefaultTableModel model = new DefaultTableModel();
+        model.setRowCount(0);
+
+        /* Tạo mới Vector chứa Column Header */
+        Vector column = new Vector();
+        column.add("MA THẺ");
+        column.add("BIỂN SỐ XE");
+        column.add("HÌNH THỨC");
+        column.add("NGAY DANG KI");
+        column.add("NGAY HET HAN");
+        column.add("TIỀN ĐÃ THU");
+        column.add("TÌNH TRẠNG");
+        /* Set Column Header lên DefaultTableModel */
+        model.setColumnIdentifiers(column);
+
+        List<DANG_KI_HINH_THUC_XE> listDS = GUIXE_DTO.getListDKHTX();
+
+        for (int i = 0; i < listDS.size(); i++) {
+            DANG_KI_HINH_THUC_XE ht = (DANG_KI_HINH_THUC_XE) listDS.get(i);
+            String hinhthuc = "";
+
+            Vector row = new Vector();
+            row.add(ht.getIdthe());
+            row.add(ht.getBienSoXe());
+            row.add(ht.getIdHinhThucGui().equals("1") ? "NGÀY" : "THÁNG");
+            row.add(ht.getNgayDK());
+            row.add(ht.getNgayHH());
+            row.add(ht.getTienDaThu());
+            row.add(ht.getIdtinhtrang().equalsIgnoreCase("CGH") ? "CHỜ GIA HẠN" : ht.getIdtinhtrang().equalsIgnoreCase("DH") ? "ĐÃ HỦY" : "KÍCH HOẠT");
+
+            model.addRow(row);
+
+        }
+        jtbDS.setModel(model);
+    }
+
+    private void showDATA(String text) {
+        DefaultTableModel model = new DefaultTableModel();
+        model.setRowCount(0);
+
+        /* Tạo mới Vector chứa Column Header */
+        Vector column = new Vector();
+        column.add("MA THẺ");
+        column.add("BIỂN SỐ XE");
+        column.add("HÌNH THỨC");
+        column.add("NGAY DANG KI");
+        column.add("NGAY HET HAN");
+        column.add("TIỀN ĐÃ THU");
+        column.add("TÌNH TRẠNG");
+        /* Set Column Header lên DefaultTableModel */
+        model.setColumnIdentifiers(column);
+
+        List<DANG_KI_HINH_THUC_XE> listDS = GUIXE_DTO.getListSearch(text);
+
+        for (int i = 0; i < listDS.size(); i++) {
+            DANG_KI_HINH_THUC_XE ht = (DANG_KI_HINH_THUC_XE) listDS.get(i);
+            String hinhthuc = "";
+
+            Vector row = new Vector();
+            row.add(ht.getIdthe());
+            row.add(ht.getBienSoXe());
+            row.add(ht.getIdHinhThucGui().equals("1") ? "NGÀY" : "THÁNG");
+            row.add(ht.getNgayDK());
+            row.add(ht.getNgayHH());
+            row.add(ht.getTienDaThu());
+            row.add(ht.getIdtinhtrang().equalsIgnoreCase("CGH") ? "CHỜ GIA HẠN" : ht.getIdtinhtrang().equalsIgnoreCase("DH") ? "ĐÃ HỦY" : "KÍCH HOẠT");
+
+            model.addRow(row);
+
+        }
+        jtbDS.setModel(model);
+    }
+
 }

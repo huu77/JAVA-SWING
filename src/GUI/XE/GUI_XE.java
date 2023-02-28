@@ -6,6 +6,7 @@ package GUI.XE;
 
 import DTO.GUIXE_DTO;
 import MODEL.DANG_KI_HINH_THUC_XE;
+import MODEL.THE1_MODEL;
 import MODEL.XE_MODEL;
 import java.util.List;
 import java.util.Vector;
@@ -188,7 +189,7 @@ public class GUI_XE extends javax.swing.JPanel {
                                 .addComponent(jLabel4)
                                 .addComponent(jCBBHTG, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(jCBBLOAIXE, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 62, Short.MAX_VALUE))))
+                        .addGap(0, 59, Short.MAX_VALUE))))
         );
 
         jLabel9.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
@@ -212,6 +213,11 @@ public class GUI_XE extends javax.swing.JPanel {
         jButton7.setText("XUẤT BẾN");
 
         jButton8.setText("MẤT THẺ");
+        jButton8.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton8MouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -289,7 +295,7 @@ public class GUI_XE extends javax.swing.JPanel {
                 .addContainerGap()
                 .addComponent(jLabel10)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 215, Short.MAX_VALUE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 218, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -325,12 +331,51 @@ public class GUI_XE extends javax.swing.JPanel {
         jtxtMAUXE.setText("");
         jCBBLOAIXE.setSelectedIndex(0);
         jCBBHTG.setSelectedIndex(0);
+        showDSXe();
     }//GEN-LAST:event_jButton1MouseClicked
 
     private void jButton2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton2MouseClicked
           DANGKIXE dkx=new DANGKIXE();
           dkx.setVisible(true);
     }//GEN-LAST:event_jButton2MouseClicked
+
+    private void jButton8MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton8MouseClicked
+      
+        DefaultTableModel model = new DefaultTableModel();
+        model.setRowCount(0);
+
+        /* Tạo mới Vector chứa Column Header */
+        Vector column = new Vector();
+        column.add("BIỂN SỐ XE");
+        column.add("TÊN XE");
+        column.add("MÀU XE");
+        column.add("LOẠI XE");
+        /* Set Column Header lên DefaultTableModel */
+        model.setColumnIdentifiers(column);
+
+        List<XE_MODEL> listDSXE = gx.getALLXE();
+         List<THE1_MODEL> listthe= gx.getTHENULL();
+        for (int i = 0; i < listDSXE.size(); i++) {
+            XE_MODEL xe = (XE_MODEL) listDSXE.get(i);
+            for (int j=0;j<listthe.size();j++){
+                 THE1_MODEL the1=(THE1_MODEL) listthe.get(j);
+                   if(xe.getBienSoXe().equals(the1.getBienSoXe())){
+            Vector row = new Vector();
+            row.add(xe.getBienSoXe());
+            row.add(xe.getTenXe());
+            row.add(xe.getMauXe());
+            row.add(xe.getLoaiXe());
+
+            model.addRow(row);
+            }
+           
+          
+            }
+          
+
+        }
+        jtbXE.setModel(model);
+    }//GEN-LAST:event_jButton8MouseClicked
     private void hideVitri(int i) {
 
         List<DANG_KI_HINH_THUC_XE> list1 = GUIXE_DTO.getDKXE();

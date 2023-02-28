@@ -4,6 +4,7 @@
  */
 package GUI;
 
+import DTO.LOGIN_DTO;
 import GUI.QUAN_LY.QUAN_LYTAI_KHOAN;
 import GUI.QUAN_LY.QUAN_LY_CA_TRUC;
 import GUI.QUAN_LY.QUAN_LY_NHANN_VIEN;
@@ -14,11 +15,13 @@ import GUI.XE.DS_HINH_THUC_GUI_XE;
 import GUI.XE.GUI_XE;
 import GUI.XE.QUAN_LY_GIA_XE;
 import GUI.XE.QUAN_LY_THE;
+import MODEL.NHANVIEN;
 import java.awt.BorderLayout;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.List;
 
 /**
  *
@@ -29,12 +32,38 @@ public final class viewMain extends javax.swing.JFrame {
     /**
      * Creates new form viewMain
      */
+    //lay data nv qua
+    LOGIN lg=new LOGIN();
+    
     public viewMain() {
         initComponents();
         setLocationRelativeTo(null);
         addRootJPN();
         setTime();
+        handleInfoNV();
     }
+    //handle 
+    public void  handleInfoNV(){
+          List<NHANVIEN> list = LOGIN_DTO.getLoginUp(lg.user, lg.PassMH);
+        NHANVIEN dn = list.get(0);
+        for (NHANVIEN d : list) {
+            if (d.getTenDdangNhap().equals(dn.getTenDdangNhap()) && d.getPassword().equals(dn.getPassword())) {
+                
+                jlbNAME.setText(dn.getHoten());
+                 System.out.println(dn.getIdVaiTRo());
+                String vaitro=dn.getIdVaiTRo().equalsIgnoreCase("0")?"QUẢN LÝ":"NHÂN VIÊN TRÔNG COI";
+                jlbVAITRO.setText(vaitro);
+                handlePHANQUYEn(dn.getIdVaiTRo());
+            }
+        }
+    }
+    // test phan quyen
+    private void handlePHANQUYEn(String id){
+        if(id.equalsIgnoreCase("1")){
+             jpnTHONG_KE.setEnabled(false);
+        }
+    }
+            
 //setTime
 
     public void setTime() {
@@ -145,10 +174,10 @@ public final class viewMain extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jlbDMY = new javax.swing.JLabel();
         jlbTime = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
+        jlbNAME = new javax.swing.JLabel();
+        jlbVAITRO = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
-        jTabbedPane3 = new javax.swing.JTabbedPane();
+        jTBMAIN = new javax.swing.JTabbedPane();
         jPanel1 = new javax.swing.JPanel();
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jpnGUIXE = new javax.swing.JPanel();
@@ -178,12 +207,13 @@ public final class viewMain extends javax.swing.JFrame {
         jlbTime.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jlbTime.setText("19:25:01");
 
-        jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel4.setText("NGUYỄN THANH HỮU");
+        jlbNAME.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jlbNAME.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jlbNAME.setText("NGUYỄN THANH HỮU");
 
-        jLabel5.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel5.setText("QUẢN LÝ");
+        jlbVAITRO.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jlbVAITRO.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jlbVAITRO.setText("QUẢN LÝ");
 
         jLabel6.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -195,14 +225,14 @@ public final class viewMain extends javax.swing.JFrame {
             }
         });
 
-        jTabbedPane3.setBackground(new java.awt.Color(255, 255, 255));
-        jTabbedPane3.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jTBMAIN.setBackground(new java.awt.Color(255, 255, 255));
+        jTBMAIN.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
         javax.swing.GroupLayout jpnGUIXELayout = new javax.swing.GroupLayout(jpnGUIXE);
         jpnGUIXE.setLayout(jpnGUIXELayout);
         jpnGUIXELayout.setHorizontalGroup(
             jpnGUIXELayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1279, Short.MAX_VALUE)
+            .addGap(0, 1273, Short.MAX_VALUE)
         );
         jpnGUIXELayout.setVerticalGroup(
             jpnGUIXELayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -215,7 +245,7 @@ public final class viewMain extends javax.swing.JFrame {
         jpnDS_hinh_thuc_gui_xe.setLayout(jpnDS_hinh_thuc_gui_xeLayout);
         jpnDS_hinh_thuc_gui_xeLayout.setHorizontalGroup(
             jpnDS_hinh_thuc_gui_xeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1279, Short.MAX_VALUE)
+            .addGap(0, 1273, Short.MAX_VALUE)
         );
         jpnDS_hinh_thuc_gui_xeLayout.setVerticalGroup(
             jpnDS_hinh_thuc_gui_xeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -228,7 +258,7 @@ public final class viewMain extends javax.swing.JFrame {
         JPNCHITIETRAVAO.setLayout(JPNCHITIETRAVAOLayout);
         JPNCHITIETRAVAOLayout.setHorizontalGroup(
             JPNCHITIETRAVAOLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1279, Short.MAX_VALUE)
+            .addGap(0, 1273, Short.MAX_VALUE)
         );
         JPNCHITIETRAVAOLayout.setVerticalGroup(
             JPNCHITIETRAVAOLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -241,7 +271,7 @@ public final class viewMain extends javax.swing.JFrame {
         jpnQUAN_LY_THE.setLayout(jpnQUAN_LY_THELayout);
         jpnQUAN_LY_THELayout.setHorizontalGroup(
             jpnQUAN_LY_THELayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1279, Short.MAX_VALUE)
+            .addGap(0, 1273, Short.MAX_VALUE)
         );
         jpnQUAN_LY_THELayout.setVerticalGroup(
             jpnQUAN_LY_THELayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -254,7 +284,7 @@ public final class viewMain extends javax.swing.JFrame {
         jpnQUAN_LY_GIA_VE.setLayout(jpnQUAN_LY_GIA_VELayout);
         jpnQUAN_LY_GIA_VELayout.setHorizontalGroup(
             jpnQUAN_LY_GIA_VELayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1279, Short.MAX_VALUE)
+            .addGap(0, 1273, Short.MAX_VALUE)
         );
         jpnQUAN_LY_GIA_VELayout.setVerticalGroup(
             jpnQUAN_LY_GIA_VELayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -271,16 +301,16 @@ public final class viewMain extends javax.swing.JFrame {
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 590, Short.MAX_VALUE)
+            .addComponent(jTabbedPane1)
         );
 
-        jTabbedPane3.addTab("XE", jPanel1);
+        jTBMAIN.addTab("XE", jPanel1);
 
         javax.swing.GroupLayout jpnQL_NVLayout = new javax.swing.GroupLayout(jpnQL_NV);
         jpnQL_NV.setLayout(jpnQL_NVLayout);
         jpnQL_NVLayout.setHorizontalGroup(
             jpnQL_NVLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1279, Short.MAX_VALUE)
+            .addGap(0, 1273, Short.MAX_VALUE)
         );
         jpnQL_NVLayout.setVerticalGroup(
             jpnQL_NVLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -293,7 +323,7 @@ public final class viewMain extends javax.swing.JFrame {
         jpnQL_CT.setLayout(jpnQL_CTLayout);
         jpnQL_CTLayout.setHorizontalGroup(
             jpnQL_CTLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1279, Short.MAX_VALUE)
+            .addGap(0, 1273, Short.MAX_VALUE)
         );
         jpnQL_CTLayout.setVerticalGroup(
             jpnQL_CTLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -306,7 +336,7 @@ public final class viewMain extends javax.swing.JFrame {
         jpnQLTK.setLayout(jpnQLTKLayout);
         jpnQLTKLayout.setHorizontalGroup(
             jpnQLTKLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1279, Short.MAX_VALUE)
+            .addGap(0, 1273, Short.MAX_VALUE)
         );
         jpnQLTKLayout.setVerticalGroup(
             jpnQLTKLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -323,23 +353,23 @@ public final class viewMain extends javax.swing.JFrame {
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 590, Short.MAX_VALUE)
+            .addComponent(jTabbedPane2)
         );
 
-        jTabbedPane3.addTab("NHÂN VIÊN", jPanel2);
+        jTBMAIN.addTab("NHÂN VIÊN", jPanel2);
 
         javax.swing.GroupLayout jpnTHONG_KELayout = new javax.swing.GroupLayout(jpnTHONG_KE);
         jpnTHONG_KE.setLayout(jpnTHONG_KELayout);
         jpnTHONG_KELayout.setHorizontalGroup(
             jpnTHONG_KELayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1279, Short.MAX_VALUE)
+            .addGap(0, 1273, Short.MAX_VALUE)
         );
         jpnTHONG_KELayout.setVerticalGroup(
             jpnTHONG_KELayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 590, Short.MAX_VALUE)
         );
 
-        jTabbedPane3.addTab("THỐNG KÊ", jpnTHONG_KE);
+        jTBMAIN.addTab("THỐNG KÊ", jpnTHONG_KE);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -352,19 +382,19 @@ public final class viewMain extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jlbTime, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(136, 136, 136)
-                        .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(77, 77, 77)
-                        .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(84, 84, 84)
+                        .addComponent(jlbNAME, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jlbVAITRO, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jlbDMY, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(47, 47, 47))))
+                        .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(47, 47, 47))
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jTabbedPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                .addComponent(jTBMAIN, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -380,11 +410,11 @@ public final class viewMain extends javax.swing.JFrame {
                         .addComponent(jLabel6)))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel4)
-                    .addComponent(jLabel5)
+                    .addComponent(jlbNAME)
+                    .addComponent(jlbVAITRO)
                     .addComponent(jlbTime, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(8, 8, 8)
-                .addComponent(jTabbedPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 627, Short.MAX_VALUE))
+                .addComponent(jTBMAIN))
         );
 
         pack();
@@ -434,16 +464,16 @@ public final class viewMain extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel JPNCHITIETRAVAO;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JTabbedPane jTBMAIN;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTabbedPane jTabbedPane2;
-    private javax.swing.JTabbedPane jTabbedPane3;
     private javax.swing.JLabel jlbDMY;
+    private javax.swing.JLabel jlbNAME;
     private javax.swing.JLabel jlbTime;
+    private javax.swing.JLabel jlbVAITRO;
     private javax.swing.JPanel jpnDS_hinh_thuc_gui_xe;
     private javax.swing.JPanel jpnGUIXE;
     private javax.swing.JPanel jpnQLTK;
