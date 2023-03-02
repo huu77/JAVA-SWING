@@ -8,6 +8,7 @@ import DTO.LOGIN_DTO;
 import GUI.QUAN_LY.QUAN_LYTAI_KHOAN;
 import GUI.QUAN_LY.QUAN_LY_CA_TRUC;
 import GUI.QUAN_LY.QUAN_LY_NHANN_VIEN;
+import GUI.THONG_KE.Chart;
 import GUI.THONG_KE.THONG_KE;
 
 import GUI.XE.CHI_TIET_RA_VAO;
@@ -33,8 +34,8 @@ public final class viewMain extends javax.swing.JFrame {
      * Creates new form viewMain
      */
     //lay data nv qua
-    LOGIN lg=new LOGIN();
-    
+    LOGIN lg = new LOGIN();
+
     public viewMain() {
         initComponents();
         setLocationRelativeTo(null);
@@ -42,50 +43,49 @@ public final class viewMain extends javax.swing.JFrame {
         setTime();
         handleInfoNV();
     }
+
     //handle 
-    public void  handleInfoNV(){
-          List<NHANVIEN> list = LOGIN_DTO.getLoginUp(lg.user, lg.PassMH);
+    public void handleInfoNV() {
+        List<NHANVIEN> list = LOGIN_DTO.getLoginUp(lg.user, lg.PassMH);
         NHANVIEN dn = list.get(0);
         for (NHANVIEN d : list) {
             if (d.getTenDdangNhap().equals(dn.getTenDdangNhap()) && d.getPassword().equals(dn.getPassword())) {
-                
+
                 jlbNAME.setText(dn.getHoten());
-                 System.out.println(dn.getIdVaiTRo());
-                String vaitro=dn.getIdVaiTRo().equalsIgnoreCase("0")?"QUẢN LÝ":"NHÂN VIÊN TRÔNG COI";
+
+                String vaitro = dn.getIdVaiTRo().equalsIgnoreCase("0") ? "QUẢN LÝ" : "NHÂN VIÊN TRÔNG COI";
                 jlbVAITRO.setText(vaitro);
                 handlePHANQUYEn(dn.getIdVaiTRo());
             }
         }
     }
+
     // test phan quyen
-    private void handlePHANQUYEn(String id){
-        if(id.equalsIgnoreCase("1")){
-             jpnTHONG_KE.setEnabled(false);
+    private void handlePHANQUYEn(String id) {
+        if (id.equalsIgnoreCase("1")) {
+            jpnTHONG_KE.setEnabled(false);
         }
     }
-            
-//setTime
 
+//setTime
     public void setTime() {
-                   Date d=new Date();
-         
-     SimpleDateFormat  Day;
+        Date d = new Date();
+
+        SimpleDateFormat Day;
         Day = new SimpleDateFormat("dd");
-           String day=Day.format(d);
-           
-      SimpleDateFormat  Month;
+        String day = Day.format(d);
+
+        SimpleDateFormat Month;
         Month = new SimpleDateFormat("MM");
-       String month=Month.format(d);
-      
-       
-             
-      SimpleDateFormat  Year;
+        String month = Month.format(d);
+
+        SimpleDateFormat Year;
         Year = new SimpleDateFormat("YYYY");
-       String year=Year.format(d);
-      
-       String ngayThangNam="ngày  "+day+" tháng  "+month+" năm  " +year;
-      jlbDMY.setText(ngayThangNam);
-      
+        String year = Year.format(d);
+
+        String ngayThangNam = "ngày  " + day + " tháng  " + month + " năm  " + year;
+        jlbDMY.setText(ngayThangNam);
+
         new Thread() {
 
             @Override
@@ -160,11 +160,18 @@ public final class viewMain extends javax.swing.JFrame {
         jpnQL_CT.repaint();
         // ADD THHONG KE
 
-        jpnTHONG_KE.removeAll();
-        jpnTHONG_KE.setLayout(new BorderLayout());
-        jpnTHONG_KE.add(new THONG_KE());
-        jpnTHONG_KE.validate();
-        jpnTHONG_KE.repaint();
+        jpnThongke1.removeAll();
+        jpnThongke1.setLayout(new BorderLayout());
+        jpnThongke1.add(new THONG_KE());
+        jpnThongke1.validate();
+        jpnThongke1.repaint();
+        
+        //add chart
+           jpnthongke2.removeAll();
+        jpnthongke2.setLayout(new BorderLayout());
+        jpnthongke2.add(new Chart());
+        jpnthongke2.validate();
+        jpnthongke2.repaint();
     }
 
     @SuppressWarnings("unchecked")
@@ -191,6 +198,11 @@ public final class viewMain extends javax.swing.JFrame {
         jpnQL_CT = new javax.swing.JPanel();
         jpnQLTK = new javax.swing.JPanel();
         jpnTHONG_KE = new javax.swing.JPanel();
+        jpn = new javax.swing.JTabbedPane();
+        jPanel3 = new javax.swing.JPanel();
+        jpnThongke1 = new javax.swing.JPanel();
+        jPanel4 = new javax.swing.JPanel();
+        jpnthongke2 = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -358,15 +370,63 @@ public final class viewMain extends javax.swing.JFrame {
 
         jTBMAIN.addTab("NHÂN VIÊN", jPanel2);
 
+        javax.swing.GroupLayout jpnThongke1Layout = new javax.swing.GroupLayout(jpnThongke1);
+        jpnThongke1.setLayout(jpnThongke1Layout);
+        jpnThongke1Layout.setHorizontalGroup(
+            jpnThongke1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 1246, Short.MAX_VALUE)
+        );
+        jpnThongke1Layout.setVerticalGroup(
+            jpnThongke1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 557, Short.MAX_VALUE)
+        );
+
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jpnThongke1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jpnThongke1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+
+        jpn.addTab("THỐNG KÊ XE", jPanel3);
+
+        javax.swing.GroupLayout jpnthongke2Layout = new javax.swing.GroupLayout(jpnthongke2);
+        jpnthongke2.setLayout(jpnthongke2Layout);
+        jpnthongke2Layout.setHorizontalGroup(
+            jpnthongke2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 1246, Short.MAX_VALUE)
+        );
+        jpnthongke2Layout.setVerticalGroup(
+            jpnthongke2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 557, Short.MAX_VALUE)
+        );
+
+        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
+        jPanel4.setLayout(jPanel4Layout);
+        jPanel4Layout.setHorizontalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jpnthongke2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        jPanel4Layout.setVerticalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jpnthongke2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+
+        jpn.addTab("CHART", jPanel4);
+
         javax.swing.GroupLayout jpnTHONG_KELayout = new javax.swing.GroupLayout(jpnTHONG_KE);
         jpnTHONG_KE.setLayout(jpnTHONG_KELayout);
         jpnTHONG_KELayout.setHorizontalGroup(
             jpnTHONG_KELayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1273, Short.MAX_VALUE)
+            .addComponent(jpn)
         );
         jpnTHONG_KELayout.setVerticalGroup(
             jpnTHONG_KELayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 590, Short.MAX_VALUE)
+            .addComponent(jpn)
         );
 
         jTBMAIN.addTab("THỐNG KÊ", jpnTHONG_KE);
@@ -467,6 +527,8 @@ public final class viewMain extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel4;
     private javax.swing.JTabbedPane jTBMAIN;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTabbedPane jTabbedPane2;
@@ -474,6 +536,7 @@ public final class viewMain extends javax.swing.JFrame {
     private javax.swing.JLabel jlbNAME;
     private javax.swing.JLabel jlbTime;
     private javax.swing.JLabel jlbVAITRO;
+    private javax.swing.JTabbedPane jpn;
     private javax.swing.JPanel jpnDS_hinh_thuc_gui_xe;
     private javax.swing.JPanel jpnGUIXE;
     private javax.swing.JPanel jpnQLTK;
@@ -482,6 +545,8 @@ public final class viewMain extends javax.swing.JFrame {
     private javax.swing.JPanel jpnQUAN_LY_GIA_VE;
     private javax.swing.JPanel jpnQUAN_LY_THE;
     private javax.swing.JPanel jpnTHONG_KE;
+    private javax.swing.JPanel jpnThongke1;
+    private javax.swing.JPanel jpnthongke2;
     // End of variables declaration//GEN-END:variables
 
 }

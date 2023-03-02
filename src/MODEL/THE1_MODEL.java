@@ -16,6 +16,11 @@ public class THE1_MODEL {
     public THE1_MODEL() {
     }
 
+    public THE1_MODEL(String IDTHE, String trangThai) {
+        this.IDTHE = IDTHE;
+        this.trangThai = trangThai;
+    }
+
     public THE1_MODEL(String BienSoXe, String IDTHE, String trangThai) {
         this.BienSoXe = BienSoXe;
         this.IDTHE = IDTHE;

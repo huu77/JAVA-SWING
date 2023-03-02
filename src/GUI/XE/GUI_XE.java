@@ -10,6 +10,7 @@ import MODEL.THE1_MODEL;
 import MODEL.XE_MODEL;
 import java.util.List;
 import java.util.Vector;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -26,6 +27,8 @@ public class GUI_XE extends javax.swing.JPanel {
         showLoaiXeCBB();
         showHTGCBB();
         jlbERR1.setVisible(false);
+       jtxtBSX.setEnabled(false);
+       jtxtMATHE.setEnabled(false);
     }
 
     @SuppressWarnings("unchecked")
@@ -59,6 +62,7 @@ public class GUI_XE extends javax.swing.JPanel {
         jButton6 = new javax.swing.JButton();
         jButton7 = new javax.swing.JButton();
         jButton8 = new javax.swing.JButton();
+        jtxtCheckMatThe = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         jLabel10 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
@@ -144,20 +148,23 @@ public class GUI_XE extends javax.swing.JPanel {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jtxtTENXE, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jCBBHTG, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(65, 70, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel7)
                             .addComponent(jLabel6))
                         .addGap(34, 34, 34)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jtxtMAUXE, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jtxtMATHE, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jtxtMATHE, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addContainerGap(194, Short.MAX_VALUE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jtxtMAUXE, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jButton1)
+                                .addGap(57, 57, 57))))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(16, Short.MAX_VALUE))
+                        .addContainerGap(1128, Short.MAX_VALUE))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -203,19 +210,41 @@ public class GUI_XE extends javax.swing.JPanel {
         });
 
         jButton3.setText("CẬP NHẬT");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
 
         jButton4.setText("GIA HẠN");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
 
         jButton5.setText("HỦY GIA HẠN");
 
         jButton6.setText("VÀO BẾN ");
+        jButton6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton6ActionPerformed(evt);
+            }
+        });
 
         jButton7.setText("XUẤT BẾN");
 
-        jButton8.setText("MẤT THẺ");
+        jButton8.setText("DS MẤT THẺ");
         jButton8.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jButton8MouseClicked(evt);
+            }
+        });
+
+        jtxtCheckMatThe.setText(" MẤT THẺ");
+        jtxtCheckMatThe.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jtxtCheckMatTheMouseClicked(evt);
             }
         });
 
@@ -240,6 +269,8 @@ public class GUI_XE extends javax.swing.JPanel {
                 .addComponent(jButton7)
                 .addGap(50, 50, 50)
                 .addComponent(jButton8)
+                .addGap(18, 18, 18)
+                .addComponent(jtxtCheckMatThe)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
@@ -254,8 +285,9 @@ public class GUI_XE extends javax.swing.JPanel {
                     .addComponent(jButton5)
                     .addComponent(jButton6)
                     .addComponent(jButton7)
-                    .addComponent(jButton8))
-                .addContainerGap(35, Short.MAX_VALUE))
+                    .addComponent(jButton8)
+                    .addComponent(jtxtCheckMatThe))
+                .addContainerGap(41, Short.MAX_VALUE))
         );
 
         jLabel10.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
@@ -295,7 +327,7 @@ public class GUI_XE extends javax.swing.JPanel {
                 .addContainerGap()
                 .addComponent(jLabel10)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 218, Short.MAX_VALUE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 212, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -375,7 +407,44 @@ public class GUI_XE extends javax.swing.JPanel {
 
         }
         jtbXE.setModel(model);
+        
+        // 
+        
     }//GEN-LAST:event_jButton8MouseClicked
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        String a=jtxtTENXE.getText();
+        String b=jtxtMAUXE.getText();
+        String c=jtxtBSX.getText();
+        GUIXE_DTO.update(a, b, c);
+        JOptionPane.showMessageDialog(this, "Cập nhật thành công! ");
+        showDSXe();
+    }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+       
+    }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void jtxtCheckMatTheMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtxtCheckMatTheMouseClicked
+       String a= jtxtMATHE.getText();
+        
+        if(GUIXE_DTO.checkMatThe(a).size()==0){
+           JOptionPane.showMessageDialog(this, "thẻ đã bi mất! ");
+        }else{
+            JOptionPane.showMessageDialog(this, "thẻ của bạn vẫn đang hoạt động! ");
+        }
+    }//GEN-LAST:event_jtxtCheckMatTheMouseClicked
+
+    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+       String bienSo=jtxtBSX.getText();
+          List<XE_MODEL> listDSXE = gx.getALLXE();
+        for (int i = 0; i < listDSXE.size(); i++) {
+            XE_MODEL xe = (XE_MODEL) listDSXE.get(i);
+        if(xe.getBienSoXe().equalsIgnoreCase(bienSo)){
+            
+        }
+        }
+    }//GEN-LAST:event_jButton6ActionPerformed
     private void hideVitri(int i) {
 
         List<DANG_KI_HINH_THUC_XE> list1 = GUIXE_DTO.getDKXE();
@@ -469,6 +538,7 @@ public class GUI_XE extends javax.swing.JPanel {
     private javax.swing.JLabel jlbERR1;
     private javax.swing.JTable jtbXE;
     private javax.swing.JTextField jtxtBSX;
+    private javax.swing.JButton jtxtCheckMatThe;
     private javax.swing.JTextField jtxtMATHE;
     private javax.swing.JTextField jtxtMAUXE;
     private javax.swing.JTextField jtxtTENXE;

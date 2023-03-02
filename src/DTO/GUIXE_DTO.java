@@ -220,7 +220,41 @@ public class GUIXE_DTO {
         }
         return list;
     }
- 
+ // update màu xe và tên xe
+  public static void update(String a, String b,String c){
+      try {
+          String query = "update XE set TENXE =N'"+a+"', MAUXE=N'"+b+"' where BIENSOXE='"+c+"'";
+          Connection con = sqlDao.getConnection();
+            Statement stm = con.createStatement();
+            int x = stm.executeUpdate(query);
+            if (x == 0) {
+                System.out.println("tai khoan ko ton tai");
+            } else {
+                System.out.println("dangw ki thanh cong");
+
+            }
+      } catch (Exception e) {
+      }
+  } 
+  //check mat the 
+  public static List<THE1_MODEL> checkMatThe(String a){
+      List<THE1_MODEL> list = new ArrayList<>();
+
+      try {
+           String query = "select * from THE where   IDTHE='"+a+"'and TRANGTHAI =1";
+          Connection con = sqlDao.getConnection();
+            Statement stm = con.createStatement();
+            
+            ResultSet rs = stm.executeQuery(query);
+            while (rs.next()) {
+                THE1_MODEL lg = new THE1_MODEL(rs.getString(1), rs.getString(2));
+
+                list.add(lg);
+            }
+      } catch (Exception e) {
+      }
+      return list;
+  }
     public static void main(String[] args) {
 
         System.out.println(GUIXE_DTO.getDKXE());
