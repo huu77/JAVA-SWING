@@ -255,8 +255,29 @@ public class GUIXE_DTO {
       }
       return list;
   }
-    public static void main(String[] args) {
+  
+  //chheck gia han
+    public static String checkGiahan(String a,int b){
+ String x=null;
 
-        System.out.println(GUIXE_DTO.getDKXE());
+      try {
+           String query = "select IDTINHTRANG from DANGKY_HINHTHUCGUI where BIENSOXE='"+a+"' and  IDHINHTHUC='"+b+"' ";
+          Connection con = sqlDao.getConnection();
+            Statement stm = con.createStatement();
+            
+            ResultSet rs = stm.executeQuery(query);
+            while (rs.next()) {
+               
+
+                x=rs.getString(1);
+            }
+      } catch (Exception e) {
+      }
+      return x;
+  }
+    public static void main(String[] args) {
+        String a="29D-029.29";
+        int b=2;
+        System.out.println(checkGiahan(a, b));
     }
 }

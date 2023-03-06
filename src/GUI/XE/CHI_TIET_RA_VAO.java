@@ -4,18 +4,51 @@
  */
 package GUI.XE;
 
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
+import javax.swing.table.DefaultTableModel;
+import DTO.GUIXE_DTO;
+import javax.swing.table.*;
+import DTO.RAVAO_DTO;
+import MODEL.RAVAO;
+import MODEL.XE_MODEL;
+import java.util.List;
+import java.util.Vector;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
+
+
+import javax.swing.RowFilter;
+import javax.swing.SwingUtilities;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
+import javax.swing.table.TableRowSorter;
+
+import java.awt.BorderLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+    
 /**
  *
  * @author HUU77
  */
 public class CHI_TIET_RA_VAO extends javax.swing.JPanel {
+    
+
 
     /**
      * Creates new form CHI_TIET_RA_VAO
      */
     public CHI_TIET_RA_VAO() {
         initComponents();
+        showtbRAVAO();
+        
     }
+    
+
+  
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -26,30 +59,153 @@ public class CHI_TIET_RA_VAO extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
+        jTextField2 = new javax.swing.JTextField();
+        jLabel4 = new javax.swing.JLabel();
+        jPanel2 = new javax.swing.JPanel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tbRAVAO = new javax.swing.JTable();
 
-        jLabel1.setText("chi tiet ra vao");
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel1.setText("Nhập biển số xe để tìm kiếm:");
+
+        jTextField2.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jTextField2.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jTextField2KeyReleased(evt);
+            }
+        });
+
+        jLabel4.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel4.setText("Danh sách xe trong bến:");
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 209, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addGap(48, 48, 48)
+                        .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 405, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(455, Short.MAX_VALUE))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
+
+        tbRAVAO.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null}
+            },
+            new String [] {
+                "Biển số xe", "Hình thức gửi", "Thời gian vào", "Thời gian ra", "Số tiền", "Ca trực", "Mã nhân viên"
+            }
+        ));
+        jScrollPane1.setViewportView(tbRAVAO);
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 1249, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 647, Short.MAX_VALUE)
+                .addContainerGap())
+        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(531, 531, 531)
-                .addComponent(jLabel1)
-                .addContainerGap(676, Short.MAX_VALUE))
+                .addGap(17, 17, 17)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(92, Short.MAX_VALUE))
+            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(205, 205, 205)
-                .addComponent(jLabel1)
-                .addContainerGap(338, Short.MAX_VALUE))
+                .addGap(16, 16, 16)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    public void showtbRAVAO() {
+        DefaultTableModel model = new DefaultTableModel();
+        model.setRowCount(0);
 
+        /* Tạo mới Vector chứa Column Header */
+        Vector column = new Vector();
+        column.add("BIỂN SỐ XE");
+        column.add("HÌNH THỨC GỬI");
+        column.add("THỜI GIAN RA");
+        column.add("THỜI GIAN VÀO");
+        column.add("SỐ TIỀN");
+        column.add("MÃ NHÂN VIÊN");
+        column.add("CA TRỰC");
+        /* Set Column Header lên DefaultTableModel */
+        model.setColumnIdentifiers(column);
+
+        List<RAVAO> listDSRAVAO = RAVAO_DTO.getListRAVAO();
+        for (int i = 0; i < listDSRAVAO.size(); i++) {
+            RAVAO ravao = (RAVAO) listDSRAVAO.get(i);
+            Vector row = new Vector();
+            row.add(ravao.getBIENSOXE());
+            row.add(ravao.getHINHTHUCGUI());
+            row.add(ravao.getTGRA());
+            row.add(ravao.getTGVAO());
+            row.add(ravao.getSOTIEN());
+            row.add(ravao.getMANV());
+            row.add(ravao.getMACATRUC());
+            
+            
+
+            model.addRow(row);
+
+        }
+        tbRAVAO.setModel(model);
+    }
+    private void jTextField2KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField2KeyReleased
+        // TODO add your handling code here:
+        DefaultTableModel table = (DefaultTableModel)tbRAVAO.getModel();
+        String search =jTextField2.getText();
+        TableRowSorter<DefaultTableModel> tr = new TableRowSorter<DefaultTableModel>(table);
+        tbRAVAO.setRowSorter(tr);
+        tr.setRowFilter(RowFilter.regexFilter(search));
+    }//GEN-LAST:event_jTextField2KeyReleased
+   
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTextField jTextField2;
+    private javax.swing.JTable tbRAVAO;
     // End of variables declaration//GEN-END:variables
 }

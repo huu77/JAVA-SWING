@@ -15,7 +15,7 @@ public class sqlDao {
     }
         public static Connection getConnection() {
         String DB_URL = "jdbc:sqlserver://localhost:1433;"
-            + "databaseName=QuanLyNhaXeHVCS;"
+            + "databaseName=QuanLyXeHVCS;"
              + ";encrypt=true;trustServerCertificate=true;";
         String USER_NAME = "sa";
         String PASSWORD = "12";

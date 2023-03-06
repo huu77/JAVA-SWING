@@ -27,8 +27,8 @@ public class GUI_XE extends javax.swing.JPanel {
         showLoaiXeCBB();
         showHTGCBB();
         jlbERR1.setVisible(false);
-       jtxtBSX.setEnabled(false);
-       jtxtMATHE.setEnabled(false);
+        jtxtBSX.setEnabled(false);
+        jtxtMATHE.setEnabled(false);
     }
 
     @SuppressWarnings("unchecked")
@@ -265,13 +265,13 @@ public class GUI_XE extends javax.swing.JPanel {
                 .addComponent(jButton5)
                 .addGap(38, 38, 38)
                 .addComponent(jButton6)
-                .addGap(47, 47, 47)
+                .addGap(18, 18, 18)
                 .addComponent(jButton7)
-                .addGap(50, 50, 50)
+                .addGap(79, 79, 79)
                 .addComponent(jButton8)
                 .addGap(18, 18, 18)
                 .addComponent(jtxtCheckMatThe)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(119, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -367,12 +367,12 @@ public class GUI_XE extends javax.swing.JPanel {
     }//GEN-LAST:event_jButton1MouseClicked
 
     private void jButton2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton2MouseClicked
-          DANGKIXE dkx=new DANGKIXE();
-          dkx.setVisible(true);
+        DANGKIXE dkx = new DANGKIXE();
+        dkx.setVisible(true);
     }//GEN-LAST:event_jButton2MouseClicked
 
     private void jButton8MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton8MouseClicked
-      
+
         DefaultTableModel model = new DefaultTableModel();
         model.setRowCount(0);
 
@@ -386,63 +386,74 @@ public class GUI_XE extends javax.swing.JPanel {
         model.setColumnIdentifiers(column);
 
         List<XE_MODEL> listDSXE = gx.getALLXE();
-         List<THE1_MODEL> listthe= gx.getTHENULL();
+        List<THE1_MODEL> listthe = gx.getTHENULL();
         for (int i = 0; i < listDSXE.size(); i++) {
             XE_MODEL xe = (XE_MODEL) listDSXE.get(i);
-            for (int j=0;j<listthe.size();j++){
-                 THE1_MODEL the1=(THE1_MODEL) listthe.get(j);
-                   if(xe.getBienSoXe().equals(the1.getBienSoXe())){
-            Vector row = new Vector();
-            row.add(xe.getBienSoXe());
-            row.add(xe.getTenXe());
-            row.add(xe.getMauXe());
-            row.add(xe.getLoaiXe());
+            for (int j = 0; j < listthe.size(); j++) {
+                THE1_MODEL the1 = (THE1_MODEL) listthe.get(j);
+                if (xe.getBienSoXe().equals(the1.getBienSoXe())) {
+                    Vector row = new Vector();
+                    row.add(xe.getBienSoXe());
+                    row.add(xe.getTenXe());
+                    row.add(xe.getMauXe());
+                    row.add(xe.getLoaiXe());
 
-            model.addRow(row);
+                    model.addRow(row);
+                }
+
             }
-           
-          
-            }
-          
 
         }
         jtbXE.setModel(model);
-        
+
         // 
-        
+
     }//GEN-LAST:event_jButton8MouseClicked
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        String a=jtxtTENXE.getText();
-        String b=jtxtMAUXE.getText();
-        String c=jtxtBSX.getText();
+        String a = jtxtTENXE.getText();
+        String b = jtxtMAUXE.getText();
+        String c = jtxtBSX.getText();
         GUIXE_DTO.update(a, b, c);
         JOptionPane.showMessageDialog(this, "Cập nhật thành công! ");
         showDSXe();
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-       
+        String bienSO = jtxtBSX.getText();
+        String idHinhthuc = (String) jCBBHTG.getSelectedItem() == "THÁNG" ? "2" : "1";
+        System.out.println(jCBBHTG.getSelectedItem());
+        System.out.println(bienSO);
+        System.out.println(idHinhthuc);
+        String list = GUIXE_DTO.checkGiahan(bienSO, Integer.parseInt(idHinhthuc));
+        System.out.println(list);
+        if (list == "CGH"  ) {
+
+            JOptionPane.showMessageDialog(this, "BẠN CÓ THỂ GIA HẠN! ");
+        } else {
+            JOptionPane.showMessageDialog(this, "BẠN KO ĐỦ ĐIỀU KIỆN ĐỂ GIA HẠN! ");
+
+        }
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jtxtCheckMatTheMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtxtCheckMatTheMouseClicked
-       String a= jtxtMATHE.getText();
-        
-        if(GUIXE_DTO.checkMatThe(a).size()==0){
-           JOptionPane.showMessageDialog(this, "thẻ đã bi mất! ");
-        }else{
+        String a = jtxtMATHE.getText();
+
+        if (GUIXE_DTO.checkMatThe(a).size() == 0) {
+            JOptionPane.showMessageDialog(this, "thẻ đã bi mất! ");
+        } else {
             JOptionPane.showMessageDialog(this, "thẻ của bạn vẫn đang hoạt động! ");
         }
     }//GEN-LAST:event_jtxtCheckMatTheMouseClicked
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
-       String bienSo=jtxtBSX.getText();
-          List<XE_MODEL> listDSXE = gx.getALLXE();
+        String bienSo = jtxtBSX.getText();
+        List<XE_MODEL> listDSXE = gx.getALLXE();
         for (int i = 0; i < listDSXE.size(); i++) {
             XE_MODEL xe = (XE_MODEL) listDSXE.get(i);
-        if(xe.getBienSoXe().equalsIgnoreCase(bienSo)){
-            
-        }
+            if (xe.getBienSoXe().equalsIgnoreCase(bienSo)) {
+
+            }
         }
     }//GEN-LAST:event_jButton6ActionPerformed
     private void hideVitri(int i) {

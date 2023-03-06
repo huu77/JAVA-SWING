@@ -22,6 +22,13 @@ public class DANG_KI_HINH_THUC_XE {
     public DANG_KI_HINH_THUC_XE() {
     }
 
+    public DANG_KI_HINH_THUC_XE(String bienSoXe, String tenHinhThucGui) {
+        this.bienSoXe = bienSoXe;
+        this.tenHinhThucGui = tenHinhThucGui;
+    }
+
+   
+
     public DANG_KI_HINH_THUC_XE(String bienSoXe, String tenHinhThucGui, String ngayDK, String ngayHH, String tienDaThu) {
         this.bienSoXe = bienSoXe;
         this.tenHinhThucGui = tenHinhThucGui;

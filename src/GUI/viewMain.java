@@ -5,12 +5,11 @@
 package GUI;
 
 import DTO.LOGIN_DTO;
-import GUI.QUAN_LY.QUAN_LYTAI_KHOAN;
+import GUI.QUAN_LY.DANG_KY_NHAN_VIEN;
 import GUI.QUAN_LY.QUAN_LY_CA_TRUC;
-import GUI.QUAN_LY.QUAN_LY_NHANN_VIEN;
-import GUI.THONG_KE.Chart;
+import GUI.QUAN_LY.QUAN_LY_NHAN_VIEN;
+import GUI.QUAN_LY.QUAN_LY_TAI_KHOAN;
 import GUI.THONG_KE.THONG_KE;
-
 import GUI.XE.CHI_TIET_RA_VAO;
 import GUI.XE.DS_HINH_THUC_GUI_XE;
 import GUI.XE.GUI_XE;
@@ -26,7 +25,7 @@ import java.util.List;
 
 /**
  *
- * @author HUU77
+ * @author HUU77 với quy tắc là admin là 0 , nhân viên trông coi là 1
  */
 public final class viewMain extends javax.swing.JFrame {
 
@@ -44,7 +43,6 @@ public final class viewMain extends javax.swing.JFrame {
         handleInfoNV();
     }
 
-    //handle 
     public void handleInfoNV() {
         List<NHANVIEN> list = LOGIN_DTO.getLoginUp(lg.user, lg.PassMH);
         NHANVIEN dn = list.get(0);
@@ -52,21 +50,14 @@ public final class viewMain extends javax.swing.JFrame {
             if (d.getTenDdangNhap().equals(dn.getTenDdangNhap()) && d.getPassword().equals(dn.getPassword())) {
 
                 jlbNAME.setText(dn.getHoten());
-
-                String vaitro = dn.getIdVaiTRo().equalsIgnoreCase("0") ? "QUẢN LÝ" : "NHÂN VIÊN TRÔNG COI";
-                jlbVAITRO.setText(vaitro);
-                handlePHANQUYEn(dn.getIdVaiTRo());
+                String value=dn.getIdVaiTRo().trim().equalsIgnoreCase("0") ? "Quản Lý" :"Nhân Viên Thường ";
+               jlbVTRO.setText(value);
+ 
             }
         }
     }
 
-    // test phan quyen
-    private void handlePHANQUYEn(String id) {
-        if (id.equalsIgnoreCase("1")) {
-            jpnTHONG_KE.setEnabled(false);
-        }
-    }
-
+   
 //setTime
     public void setTime() {
         Date d = new Date();
@@ -105,73 +96,111 @@ public final class viewMain extends javax.swing.JFrame {
 
     // them các jpn con vào jjtable , chia layout để tối ưu code hơn
     public void addRootJPN() {
-        //ADD GUI-XE
-        jpnGUIXE.removeAll();
-        jpnGUIXE.setLayout(new BorderLayout());
-        jpnGUIXE.add(new GUI_XE());
-        jpnGUIXE.validate();
-        jpnGUIXE.repaint();
-        //ADD DS_HIN_THUC_GUI_XE
-        jpnDS_hinh_thuc_gui_xe.removeAll();
-        jpnDS_hinh_thuc_gui_xe.setLayout(new BorderLayout());
-        jpnDS_hinh_thuc_gui_xe.add(new DS_HINH_THUC_GUI_XE());
-        jpnDS_hinh_thuc_gui_xe.validate();
-        jpnDS_hinh_thuc_gui_xe.repaint();
-        //ADD CHI TIET RA VAO
-        JPNCHITIETRAVAO.removeAll();
-        JPNCHITIETRAVAO.setLayout(new BorderLayout());
-        JPNCHITIETRAVAO.add(new CHI_TIET_RA_VAO());
-        JPNCHITIETRAVAO.validate();
-        JPNCHITIETRAVAO.repaint();
-        //ADD QUAN LY THE
-        jpnQUAN_LY_THE.removeAll();
-        jpnQUAN_LY_THE.setLayout(new BorderLayout());
-        jpnQUAN_LY_THE.add(new QUAN_LY_THE());
-        jpnQUAN_LY_THE.validate();
-        jpnQUAN_LY_THE.repaint();
+        List<NHANVIEN> list = LOGIN_DTO.getLoginUp(lg.user, lg.PassMH);
+        NHANVIEN dn = list.get(0);
+        for (NHANVIEN d : list) {
+            if (d.getTenDdangNhap().equals(dn.getTenDdangNhap()) && d.getPassword().equals(dn.getPassword())) {
+                System.out.println("id vai tro"+ dn.getIdVaiTRo());
+                if (dn.getIdVaiTRo().trim().equalsIgnoreCase("0")) {
+                    //ADD GUI-XE
+                    jpnGUIXE.removeAll();
+                    jpnGUIXE.setLayout(new BorderLayout());
+                    jpnGUIXE.add(new GUI_XE());
+                    jpnGUIXE.validate();
+                    jpnGUIXE.repaint();
+                    //ADD DS_HIN_THUC_GUI_XE
+                    jpnDS_hinh_thuc_gui_xe.removeAll();
+                    jpnDS_hinh_thuc_gui_xe.setLayout(new BorderLayout());
+                    jpnDS_hinh_thuc_gui_xe.add(new DS_HINH_THUC_GUI_XE());
+                    jpnDS_hinh_thuc_gui_xe.validate();
+                    jpnDS_hinh_thuc_gui_xe.repaint();
+                    //ADD CHI TIET RA VAO
+                    JPNCHITIETRAVAO.removeAll();
+                    JPNCHITIETRAVAO.setLayout(new BorderLayout());
+                    JPNCHITIETRAVAO.add(new CHI_TIET_RA_VAO());
+                    JPNCHITIETRAVAO.validate();
+                    JPNCHITIETRAVAO.repaint();
+                    //ADD QUAN LY THE
+                    jpnQUAN_LY_THE.removeAll();
+                    jpnQUAN_LY_THE.setLayout(new BorderLayout());
+                    jpnQUAN_LY_THE.add(new QUAN_LY_THE());
+                    jpnQUAN_LY_THE.validate();
+                    jpnQUAN_LY_THE.repaint();
 
-        // ADD QUAN LY GIA VE
-        jpnQUAN_LY_GIA_VE.removeAll();
-        jpnQUAN_LY_GIA_VE.setLayout(new BorderLayout());
-        jpnQUAN_LY_GIA_VE.add(new QUAN_LY_GIA_XE());
-        jpnQUAN_LY_GIA_VE.validate();
-        jpnQUAN_LY_GIA_VE.repaint();
+                    // ADD QUAN LY GIA VE
+                    jpnQUAN_LY_GIA_VE.removeAll();
+                    jpnQUAN_LY_GIA_VE.setLayout(new BorderLayout());
+                    jpnQUAN_LY_GIA_VE.add(new QUAN_LY_GIA_XE());
+                    jpnQUAN_LY_GIA_VE.validate();
+                    jpnQUAN_LY_GIA_VE.repaint();
 
-        // QUAN LY
-        // ADD QUAN LY NHAN VIEN 
-        jpnQL_NV.removeAll();
-        jpnQL_NV.setLayout(new BorderLayout());
-        jpnQL_NV.add(new QUAN_LY_NHANN_VIEN());
-        jpnQL_NV.validate();
-        jpnQL_NV.repaint();
+                    // QUAN LY
+                    // ADD QUAN LY NHAN VIEN 
+                    jpnQL_NV.removeAll();
+                    jpnQL_NV.setLayout(new BorderLayout());
+                    jpnQL_NV.add(new QUAN_LY_NHAN_VIEN());
+                    jpnQL_NV.validate();
+                    jpnQL_NV.repaint();
 
-        // ADD QUAN LY TAI KHHOAN
-        jpnQLTK.removeAll();
-        jpnQLTK.setLayout(new BorderLayout());
-        jpnQLTK.add(new QUAN_LYTAI_KHOAN());
-        jpnQLTK.validate();
-        jpnQLTK.repaint();
+                    // ADD QUAN LY TAI KHHOAN
+                    jpnQLTK.removeAll();
+                    jpnQLTK.setLayout(new BorderLayout());
+                    jpnQLTK.add(new QUAN_LY_TAI_KHOAN());
+                    jpnQLTK.validate();
+                    jpnQLTK.repaint();
 
-        //ADD QUAN LY CA TRUC 
-        jpnQL_CT.removeAll();
-        jpnQL_CT.setLayout(new BorderLayout());
-        jpnQL_CT.add(new QUAN_LY_CA_TRUC());
-        jpnQL_CT.validate();
-        jpnQL_CT.repaint();
-        // ADD THHONG KE
+                    //ADD QUAN LY CA TRUC 
+                    jpnQL_CT.removeAll();
+                    jpnQL_CT.setLayout(new BorderLayout());
+                    jpnQL_CT.add(new QUAN_LY_CA_TRUC());
+                    jpnQL_CT.validate();
+                    jpnQL_CT.repaint();
+                    // ADD THHONG KE
+                    jpnTHONG_KE.removeAll();
+                    jpnTHONG_KE.setLayout(new BorderLayout());
+                    jpnTHONG_KE.add(new THONG_KE());
+                    jpnTHONG_KE.validate();
+                    jpnTHONG_KE.repaint();
 
-        jpnThongke1.removeAll();
-        jpnThongke1.setLayout(new BorderLayout());
-        jpnThongke1.add(new THONG_KE());
-        jpnThongke1.validate();
-        jpnThongke1.repaint();
-        
-        //add chart
-           jpnthongke2.removeAll();
-        jpnthongke2.setLayout(new BorderLayout());
-        jpnthongke2.add(new Chart());
-        jpnthongke2.validate();
-        jpnthongke2.repaint();
+                    // dang ki nhan vien
+                    JPNdknv.removeAll();
+                    JPNdknv.setLayout(new BorderLayout());
+                    JPNdknv.add(new DANG_KY_NHAN_VIEN());
+                    JPNdknv.validate();
+                    JPNdknv.repaint();
+                } else {
+                    //ADD GUI-XE
+                    jpnGUIXE.removeAll();
+                    jpnGUIXE.setLayout(new BorderLayout());
+                    jpnGUIXE.add(new GUI_XE());
+                    jpnGUIXE.validate();
+                    jpnGUIXE.repaint();
+                    
+                     //ADD DS_HIN_THUC_GUI_XE
+                    jpnDS_hinh_thuc_gui_xe.removeAll();
+                    jpnDS_hinh_thuc_gui_xe.setLayout(new BorderLayout());
+                    jpnDS_hinh_thuc_gui_xe.add(new DS_HINH_THUC_GUI_XE());
+                    jpnDS_hinh_thuc_gui_xe.validate();
+                    jpnDS_hinh_thuc_gui_xe.repaint();
+                    
+                      //ADD CHI TIET RA VAO
+                    JPNCHITIETRAVAO.removeAll();
+                    JPNCHITIETRAVAO.setLayout(new BorderLayout());
+                    JPNCHITIETRAVAO.add(new CHI_TIET_RA_VAO());
+                    JPNCHITIETRAVAO.validate();
+                    JPNCHITIETRAVAO.repaint();
+                    
+                      //ADD QUAN LY THE
+                    jpnQUAN_LY_THE.removeAll();
+                    jpnQUAN_LY_THE.setLayout(new BorderLayout());
+                    jpnQUAN_LY_THE.add(new QUAN_LY_THE());
+                    jpnQUAN_LY_THE.validate();
+                    jpnQUAN_LY_THE.repaint();
+                }
+
+            }
+        }
+
     }
 
     @SuppressWarnings("unchecked")
@@ -182,7 +211,7 @@ public final class viewMain extends javax.swing.JFrame {
         jlbDMY = new javax.swing.JLabel();
         jlbTime = new javax.swing.JLabel();
         jlbNAME = new javax.swing.JLabel();
-        jlbVAITRO = new javax.swing.JLabel();
+        jlbVTRO = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jTBMAIN = new javax.swing.JTabbedPane();
         jPanel1 = new javax.swing.JPanel();
@@ -197,12 +226,9 @@ public final class viewMain extends javax.swing.JFrame {
         jpnQL_NV = new javax.swing.JPanel();
         jpnQL_CT = new javax.swing.JPanel();
         jpnQLTK = new javax.swing.JPanel();
-        jpnTHONG_KE = new javax.swing.JPanel();
-        jpn = new javax.swing.JTabbedPane();
         jPanel3 = new javax.swing.JPanel();
-        jpnThongke1 = new javax.swing.JPanel();
-        jPanel4 = new javax.swing.JPanel();
-        jpnthongke2 = new javax.swing.JPanel();
+        JPNdknv = new javax.swing.JPanel();
+        jpnTHONG_KE = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -223,9 +249,9 @@ public final class viewMain extends javax.swing.JFrame {
         jlbNAME.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jlbNAME.setText("NGUYỄN THANH HỮU");
 
-        jlbVAITRO.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jlbVAITRO.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jlbVAITRO.setText("QUẢN LÝ");
+        jlbVTRO.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jlbVTRO.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jlbVTRO.setText("QUẢN LÝ");
 
         jLabel6.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -357,6 +383,30 @@ public final class viewMain extends javax.swing.JFrame {
 
         jTabbedPane2.addTab("QUẢN LÝ TÀI KHOẢN", jpnQLTK);
 
+        javax.swing.GroupLayout JPNdknvLayout = new javax.swing.GroupLayout(JPNdknv);
+        JPNdknv.setLayout(JPNdknvLayout);
+        JPNdknvLayout.setHorizontalGroup(
+            JPNdknvLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 1246, Short.MAX_VALUE)
+        );
+        JPNdknvLayout.setVerticalGroup(
+            JPNdknvLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 557, Short.MAX_VALUE)
+        );
+
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(JPNdknv, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(JPNdknv, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+
+        jTabbedPane2.addTab("ĐĂNG KÍ NHÂN VIÊN", jPanel3);
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -370,63 +420,15 @@ public final class viewMain extends javax.swing.JFrame {
 
         jTBMAIN.addTab("NHÂN VIÊN", jPanel2);
 
-        javax.swing.GroupLayout jpnThongke1Layout = new javax.swing.GroupLayout(jpnThongke1);
-        jpnThongke1.setLayout(jpnThongke1Layout);
-        jpnThongke1Layout.setHorizontalGroup(
-            jpnThongke1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1246, Short.MAX_VALUE)
-        );
-        jpnThongke1Layout.setVerticalGroup(
-            jpnThongke1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 557, Short.MAX_VALUE)
-        );
-
-        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
-        jPanel3.setLayout(jPanel3Layout);
-        jPanel3Layout.setHorizontalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jpnThongke1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
-        jPanel3Layout.setVerticalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jpnThongke1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
-
-        jpn.addTab("THỐNG KÊ XE", jPanel3);
-
-        javax.swing.GroupLayout jpnthongke2Layout = new javax.swing.GroupLayout(jpnthongke2);
-        jpnthongke2.setLayout(jpnthongke2Layout);
-        jpnthongke2Layout.setHorizontalGroup(
-            jpnthongke2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1246, Short.MAX_VALUE)
-        );
-        jpnthongke2Layout.setVerticalGroup(
-            jpnthongke2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 557, Short.MAX_VALUE)
-        );
-
-        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
-        jPanel4.setLayout(jPanel4Layout);
-        jPanel4Layout.setHorizontalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jpnthongke2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
-        jPanel4Layout.setVerticalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jpnthongke2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
-
-        jpn.addTab("CHART", jPanel4);
-
         javax.swing.GroupLayout jpnTHONG_KELayout = new javax.swing.GroupLayout(jpnTHONG_KE);
         jpnTHONG_KE.setLayout(jpnTHONG_KELayout);
         jpnTHONG_KELayout.setHorizontalGroup(
             jpnTHONG_KELayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jpn)
+            .addGap(0, 1246, Short.MAX_VALUE)
         );
         jpnTHONG_KELayout.setVerticalGroup(
             jpnTHONG_KELayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jpn)
+            .addGap(0, 590, Short.MAX_VALUE)
         );
 
         jTBMAIN.addTab("THỐNG KÊ", jpnTHONG_KE);
@@ -445,7 +447,7 @@ public final class viewMain extends javax.swing.JFrame {
                         .addGap(84, 84, 84)
                         .addComponent(jlbNAME, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(jlbVAITRO, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jlbVTRO, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jlbDMY, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -471,7 +473,7 @@ public final class viewMain extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jlbNAME)
-                    .addComponent(jlbVAITRO)
+                    .addComponent(jlbVTRO)
                     .addComponent(jlbTime, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(8, 8, 8)
                 .addComponent(jTBMAIN))
@@ -523,20 +525,19 @@ public final class viewMain extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel JPNCHITIETRAVAO;
+    private javax.swing.JPanel JPNdknv;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
-    private javax.swing.JPanel jPanel4;
     private javax.swing.JTabbedPane jTBMAIN;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTabbedPane jTabbedPane2;
     private javax.swing.JLabel jlbDMY;
     private javax.swing.JLabel jlbNAME;
     private javax.swing.JLabel jlbTime;
-    private javax.swing.JLabel jlbVAITRO;
-    private javax.swing.JTabbedPane jpn;
+    private javax.swing.JLabel jlbVTRO;
     private javax.swing.JPanel jpnDS_hinh_thuc_gui_xe;
     private javax.swing.JPanel jpnGUIXE;
     private javax.swing.JPanel jpnQLTK;
@@ -545,8 +546,6 @@ public final class viewMain extends javax.swing.JFrame {
     private javax.swing.JPanel jpnQUAN_LY_GIA_VE;
     private javax.swing.JPanel jpnQUAN_LY_THE;
     private javax.swing.JPanel jpnTHONG_KE;
-    private javax.swing.JPanel jpnThongke1;
-    private javax.swing.JPanel jpnthongke2;
     // End of variables declaration//GEN-END:variables
 
 }

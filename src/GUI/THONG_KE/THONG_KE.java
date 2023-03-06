@@ -472,6 +472,7 @@ public class THONG_KE extends javax.swing.JPanel {
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // XUAT PDF 
         
+        
     }//GEN-LAST:event_jButton2ActionPerformed
     public void showTHONGKE(String a, String b) {
         String text = THONG_KE_DTO.SumTienXe(a, b)!=null ?THONG_KE_DTO.SumTienXe(a, b):"0";

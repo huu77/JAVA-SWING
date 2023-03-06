@@ -3,20 +3,39 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
 package GUI.XE;
+ 
+import DTO.GUIXE_DTO;
+import DTO.THE_DTO;
+import MODEL.THE;
+import MODEL.XE_MODEL;
+import java.util.List;
+import java.util.Vector;
+import javax.swing.ButtonGroup;
+import javax.swing.JTable;
+import javax.swing.RowFilter;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableRowSorter;
+
+ 
 
 /**
  *
  * @author HUU77
  */
 public class QUAN_LY_THE extends javax.swing.JPanel {
+    DefaultTableModel dm;
+    ButtonGroup bg = new ButtonGroup();
 
     /**
      * Creates new form QUAN_LY_THE
      */
     public QUAN_LY_THE() {
         initComponents();
+        showTBTHE();
+        
     }
-
+ 
+        
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -26,30 +45,125 @@ public class QUAN_LY_THE extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jPanel2 = new javax.swing.JPanel();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        tbTHE = new javax.swing.JTable();
+        jTextField1 = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
 
-        jLabel1.setText("QUAN LY THE");
+        tbTHE.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane3.setViewportView(tbTHE);
+
+        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField1ActionPerformed(evt);
+            }
+        });
+        jTextField1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jTextField1KeyReleased(evt);
+            }
+        });
+
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel1.setText("TÌM KIẾM:");
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 997, Short.MAX_VALUE)
+                .addContainerGap())
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(51, 51, 51)
+                .addComponent(jLabel1)
+                .addGap(27, 27, 27)
+                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 239, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addGap(32, 32, 32)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 25, Short.MAX_VALUE)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 524, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(599, Short.MAX_VALUE)
-                .addComponent(jLabel1)
-                .addGap(606, 606, 606))
+            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(81, 81, 81)
-                .addComponent(jLabel1)
-                .addContainerGap(462, Short.MAX_VALUE))
+            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField1ActionPerformed
 
+    private void jTextField1KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField1KeyReleased
+        // TODO add your handling code here:
+        DefaultTableModel table = (DefaultTableModel)tbTHE.getModel();
+        String search =jTextField1.getText();
+        TableRowSorter<DefaultTableModel> tr = new TableRowSorter<DefaultTableModel>(table);
+        tbTHE.setRowSorter(tr);
+        tr.setRowFilter(RowFilter.regexFilter(search));
+    }//GEN-LAST:event_jTextField1KeyReleased
+        
+
+
+        public void showTBTHE() {
+        DefaultTableModel model = new DefaultTableModel();
+        model.setRowCount(0);
+
+        /* Tạo mới Vector chứa Column Header */
+        Vector column = new Vector();
+        column.add("MÃ THẺ");
+        column.add("BIỂN SỐ XE");
+        column.add("TRẠNG THÁI");
+        column.add("LOẠI THẺ");
+        /* Set Column Header lên DefaultTableModel */
+        model.setColumnIdentifiers(column);
+
+        List<THE> listDSTHE = THE_DTO.getListThe();
+        for (int i = 0; i < listDSTHE.size(); i++) {
+            THE the = (THE) listDSTHE.get(i);
+            Vector row = new Vector();
+            row.add(the.getMathe());
+            row.add(the.getBiensoxe());
+            row.add(the.getTrangthai());
+            row.add(the.getLoaithe());
+
+            model.addRow(row);
+
+        }
+        tbTHE.setModel(model);
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JTextField jTextField1;
+    private javax.swing.JTable tbTHE;
     // End of variables declaration//GEN-END:variables
 }

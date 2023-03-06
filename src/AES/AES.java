@@ -62,9 +62,9 @@ public class AES {
   //test code 
     public static void main(String[] args) {
         AES a=new AES();
-       String x= a.encrypt("huucaca", "Aa@gmail.com");
+       String x= a.encrypt("huucaca", "Thanhuu204768@gmail.com");
         System.out.println("x : "+x);
-        String y=a.decrypt(x, "Aa@gmail.com");
+        String y=a.decrypt(x, "Thanhuu204768@gmail.com");
         System.out.println("y :" + y);
     }
 }

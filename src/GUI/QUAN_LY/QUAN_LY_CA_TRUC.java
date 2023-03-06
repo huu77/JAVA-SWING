@@ -4,6 +4,23 @@
  */
 package GUI.QUAN_LY;
 
+import DAO.QLNHANVIEN_DTO;
+import DTO.QLCATRUC_DTO;
+import DTO.QLTAIKHOAN_DTO;
+import MODEL.LOAICATRUC;
+import MODEL.NHANVIEN;
+import MODEL.NHIEMVU;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import javax.swing.table.DefaultTableModel;
+import MODEL.CATRUC;
+import MODEL.TaiKhoan;
+import java.time.ZoneId;
+
 /**
  *
  * @author HUU77
@@ -13,9 +30,76 @@ public class QUAN_LY_CA_TRUC extends javax.swing.JPanel {
     /**
      * Creates new form QUAN_LY_CA_TRUC
      */
+    private QLNHANVIEN_DTO loadNV = new QLNHANVIEN_DTO();
+    private List<NHANVIEN> listNhanVien;
+    private QLCATRUC_DTO loadCaTruc = new QLCATRUC_DTO();
+    private List<LOAICATRUC> listLoaiCaTruc;
+    private List<NHIEMVU> listNhiemvu;        
+    DefaultTableModel model;
+
+
     public QUAN_LY_CA_TRUC() {
         initComponents();
+        model = (DefaultTableModel) jTable1.getModel();
+        ShowDataToTable(model);
+        listNhanVien = loadNV.getAllNhanVien();
+        listLoaiCaTruc = loadCaTruc.getAllLoaiCaTruc();
+        listNhiemvu = loadCaTruc.getAllNhiemVu();
+        initComboBox();
     }
+
+    private void ShowDataToTable(DefaultTableModel model) {
+        model.setRowCount(0);
+        QLCATRUC_DTO loadDTO = new QLCATRUC_DTO();
+        List<CATRUC> listCaTruc = loadDTO.getAllCaTruc();
+
+//        jScrollPane1.setOpaque(true);
+//        jScrollPane1.setVisible(true);
+        jTable1.setAutoResizeMode(jTable1.AUTO_RESIZE_ALL_COLUMNS);
+        for (CATRUC c : listCaTruc) {
+            String date = c.getNgayTruc().toString();
+
+            model.addRow(new Object[]{
+                c.getIDCaTruc(),
+                date,
+                c.getTenCaTruc(),
+                c.getMANV(),
+                c.getTenNhiemVu()
+            });
+        }
+    }
+     private boolean checkCondition(CATRUC caTruc, List<CATRUC> list){
+      int flag =0;
+      if(caTruc.getNgayTruc().isBefore(LocalDate.now())) return false;
+      for (CATRUC c : list){
+          if(c.getNgayTruc().isEqual(caTruc.getNgayTruc())){
+              flag+=1;
+              System.out.print("trung ngay"+c.getNgayTruc()+" "+caTruc.getNgayTruc()+"\n");
+              break;
+          }
+      }
+      for (CATRUC c : list){
+                        System.out.print("trung ten ca truc"+c.getTenCaTruc()+" "+caTruc.getTenCaTruc()+"\n");
+          if(c.getTenCaTruc().equalsIgnoreCase(caTruc.getTenCaTruc())){
+              flag+=1;
+              System.out.print("trung ten ca truc"+c.getTenCaTruc()+" "+caTruc.getTenCaTruc()+"\n");
+              break;
+          }
+      }
+      for (CATRUC c : list){
+                        System.out.print("trung ten ca truc"+c.getTenNhiemVu()+" "+caTruc.getTenNhiemVu()+"\n");
+          if(c.getTenNhiemVu().equalsIgnoreCase(caTruc.getTenNhiemVu())){
+              System.out.print("trung ten nhiem vu"+c.getTenNhiemVu()+" "+caTruc.getTenNhiemVu()+"\n");
+              flag+=1;
+              break;
+          }
+      }
+         System.out.println(flag);
+      if(flag ==3 ){
+          System.out.print("Đã tồn tại ca trực trùng thông tin");
+      }
+      return flag!=3;
+      }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -26,30 +110,307 @@ public class QUAN_LY_CA_TRUC extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jComboBoxCaTruc = new javax.swing.JComboBox<>();
+        jComboBoxNV = new javax.swing.JComboBox<>();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        jComboBoxNhiemVu = new javax.swing.JComboBox<>();
+        jDateChooser1 = new com.toedter.calendar.JDateChooser();
+        jButton1 = new javax.swing.JButton();
+        jPanel2 = new javax.swing.JPanel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
 
-        jLabel1.setText("QUAN LY CA TRUC");
+        jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+
+        jLabel1.setText("Thông tin ca trực");
+
+        jLabel2.setText("Ca trực");
+
+        jLabel3.setText("Ngày trực");
+
+        jComboBoxCaTruc.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
+        jComboBoxNV.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
+        jLabel4.setText("Mã nhân viên");
+
+        jLabel5.setText("Nhiệm vụ");
+
+        jComboBoxNhiemVu.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
+        jButton1.setText("Thêm ca trực");
+        jButton1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton1MouseClicked(evt);
+            }
+        });
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(36, 36, 36)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addGap(31, 31, 31)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jComboBoxCaTruc, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 603, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jButton1)
+                    .addComponent(jComboBoxNhiemVu, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jComboBoxNV, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(88, 88, 88))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(21, 21, 21)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jComboBoxNV, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(50, 50, 50)
+                        .addComponent(jComboBoxNhiemVu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel4)
+                        .addGap(50, 50, 50)
+                        .addComponent(jLabel5))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addGap(52, 52, 52)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel3)
+                                .addGap(50, 50, 50)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(jLabel2)
+                                    .addComponent(jComboBoxCaTruc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 70, Short.MAX_VALUE)
+                .addComponent(jButton1)
+                .addGap(18, 18, 18))
+        );
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 614, Short.MAX_VALUE)
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 224, Short.MAX_VALUE)
+        );
+
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "ID Ca trực", "Ngày trực", "Ca Trực", "Mã nhân viên", "Nhiệm vụ"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jTable1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                jTable1MousePressed(evt);
+            }
+        });
+        jTable1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jTable1KeyPressed(evt);
+            }
+        });
+        jScrollPane1.setViewportView(jTable1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(476, 476, 476)
-                .addComponent(jLabel1)
-                .addContainerGap(704, Short.MAX_VALUE))
+                .addGap(51, 51, 51)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(609, 609, 609))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 1202, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(83, 83, 83)
-                .addComponent(jLabel1)
-                .addContainerGap(460, Short.MAX_VALUE))
+                .addGap(16, 16, 16)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jTable1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MousePressed
+       showDataFromTable();
+    }//GEN-LAST:event_jTable1MousePressed
+
+    private void jTable1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTable1KeyPressed
+        showDataFromTable();        // TODO add your handling code here:
+    }//GEN-LAST:event_jTable1KeyPressed
+
+    private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
+            insertCaTruc();        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton1MouseClicked
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButton1;
+    private javax.swing.JComboBox<String> jComboBoxCaTruc;
+    private javax.swing.JComboBox<String> jComboBoxNV;
+    private javax.swing.JComboBox<String> jComboBoxNhiemVu;
+    private com.toedter.calendar.JDateChooser jDateChooser1;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTable jTable1;
     // End of variables declaration//GEN-END:variables
-}
+
+    private void initComboBox() {
+        //init NhanVienComboBox
+        jComboBoxNV.removeAllItems();
+        for (NHANVIEN n : listNhanVien) {
+            jComboBoxNV.addItem(n.getMANV());
+        }
+        jComboBoxNV.addItem("Nhân viên đã xóa");
+        jComboBoxNhiemVu.removeAllItems();
+        for (NHIEMVU n : listNhiemvu) {
+            jComboBoxNhiemVu.addItem(n.getTenNhiemVu());
+        }
+        jComboBoxCaTruc.removeAllItems();
+        for (LOAICATRUC n : listLoaiCaTruc) {
+            jComboBoxCaTruc.addItem(n.getTenCaTruc());
+        }
+    }
+
+    private void insertCaTruc() {
+        String MANV = jComboBoxNV.getSelectedItem().toString();
+        if(MANV.equalsIgnoreCase(jComboBoxNV.getItemAt(jComboBoxNV.getItemCount()-1))){
+            System.out.print("Không thể thêm ca trực không có nhân viên");
+        }
+        String idLoaiCaTruc = "";
+        String tenCaTruc = "";
+        String tenNhiemVu ="";
+        String idNhiemVu = "";
+        for (NHIEMVU n : listNhiemvu) {
+            if (jComboBoxNhiemVu.getSelectedItem().toString().equalsIgnoreCase(n.getTenNhiemVu())) {
+                idNhiemVu = n.getmANhiemVu();
+                tenNhiemVu = n.getTenNhiemVu();
+                break;
+            }
+        }
+        for (LOAICATRUC n : listLoaiCaTruc) {
+            if (jComboBoxCaTruc.getSelectedItem().toString().equalsIgnoreCase(n.getTenCaTruc())) {
+                idLoaiCaTruc = n.getIDLoaiCaTuc();
+                tenCaTruc=n.getTenCaTruc();
+                break;
+            }
+        }
+        Date ngayTruc =  jDateChooser1.getDate();
+        LocalDate Ldate = ngayTruc.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        CATRUC c = new CATRUC(idLoaiCaTruc, Ldate, tenCaTruc, MANV, tenNhiemVu);
+        if(checkCondition(c, loadCaTruc.getAllCaTruc())){
+                loadCaTruc.insertNewCaTruc(ngayTruc, idLoaiCaTruc, MANV, idNhiemVu);
+                ShowDataToTable(model);
+        }
+    }
+    @SuppressWarnings("empty-statement")
+    public void showDataFromTable(){
+        int row = (int) jTable1.getSelectedRow();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        
+        String dateString = jTable1.getValueAt(row, 1).toString();
+        System.out.println(dateString);
+        try{
+            Date date = dateFormat.parse(dateString);
+            jDateChooser1.setDate(date);
+        }
+        catch(ParseException e){
+            System.out.println(e);
+        };
+        String NVSelected = jTable1.getValueAt(row, 3).toString();;
+        String nhiemVuSelected = jTable1.getValueAt(row, 4).toString();
+        String loaiCaTrucSelected = jTable1.getValueAt(row, 2).toString() ;
+        for (int i =0; i< jComboBoxNV.getItemCount(); i++){
+            if(jComboBoxNV.getItemAt(i).equalsIgnoreCase(NVSelected)){
+                jComboBoxNV.setSelectedIndex(i);
+                break;
+            }else{
+                jComboBoxNV.setSelectedIndex(jComboBoxNV.getItemCount()-1);
+            }
+        }
+     
+        for (int i =0; i< jComboBoxCaTruc.getItemCount(); i++){
+            if(jComboBoxCaTruc.getItemAt(i).equalsIgnoreCase(loaiCaTrucSelected)){
+                jComboBoxCaTruc.setSelectedIndex(i);
+                break;
+            }
+        }
+        for (int i =0; i< jComboBoxNhiemVu.getItemCount(); i++){
+            if(jComboBoxNhiemVu.getItemAt(i).equalsIgnoreCase(nhiemVuSelected)){
+                jComboBoxNhiemVu.setSelectedIndex(i);
+                break;
+            } 
+        }
+        }
+       
+    }
+

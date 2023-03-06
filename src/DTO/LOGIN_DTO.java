@@ -31,12 +31,12 @@ public class LOGIN_DTO {
        List<NHANVIEN> listTK = new ArrayList<>();
        AES aes=new AES();
       try {
-            String query = "select TENDANGNHAP , MATKHAU ,HOTEN, IDVAITRO  from TAIKHOAN , NHANVIEN where TAIKHOAN.MANV=NHANVIEN.MANV and TENDANGNHAP='"+text1+"' and MATKHAU= '"+text2+"'";
+            String query = "select TENDANGNHAP , MATKHAU ,HOTEN, IDVAITRO ,ISDELETE from TAIKHOAN , NHANVIEN where TAIKHOAN.MANV=NHANVIEN.MANV and ISDELETE =1 and TENDANGNHAP='"+text1+"' and MATKHAU= '"+text2+"'";
             Connection con = sqlDao.getConnection();
             Statement stm = con.createStatement();
             ResultSet rs = stm.executeQuery(query);
             while (rs.next()) {
-              NHANVIEN lg=new NHANVIEN(rs.getString(1), rs.getString(2),rs.getString(3),rs.getString(4));
+              NHANVIEN lg=new NHANVIEN(rs.getString(1), rs.getString(2),rs.getString(3),rs.getString(4),rs.getString(5));
              
                 listTK.add(lg); 
                  
